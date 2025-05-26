@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singapore Electrical Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="light-mode">
+    <div class="circuit-background"></div>
+    
+    <header>
+        <div class="logo">
+            <i class="fas fa-bolt pulse-icon"></i>
+            <h1>Singapore Electrical Calculator</h1>
+        </div>
+        <div class="theme-toggle">
+            <button id="theme-switch" class="theme-btn">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+                <span class="slider"></span>
+            </button>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#wire-calculator" class="nav-btn active">Wire/Cable Sizing</a></li>
+            <li><a href="#breaker-calculator" class="nav-btn">Circuit Breaker Sizing</a></li>
+            <li><a href="#lighting-calculator" class="nav-btn">Lighting Design</a></li>
+            <li><a href="#fault-calculator" class="nav-btn">Fault Calculation</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="wire-calculator" class="calculator-section active">
+            <h2>Wire/Cable Size Calculator</h2>
+            <p class="section-desc">Calculate appropriate wire/cable sizes based on Singapore's CP5 Code of Practice.</p>
+            
+            <div class="calculator-container">
+                <div class="input-column">
+                    <div class="form-group">
+                        <label for="application-type">Application Type</label>
+                        <select id="application-type" class="fancy-select">
+                            <option value="residential">Residential</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="office">Office</option>
+                            <option value="school">School</option>
+                            <option value="industrial">Industrial</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="load-current">Load Current (A)</label>
+                        <input type="number" id="load-current" min="0" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="voltage">Voltage (V)</label>
+                        <input type="number" id="voltage" value="230" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cable-length">Cable Length (m)</label>
+                        <input type="number" id="cable-length" min="0" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="installation-method">Installation Method</label>
+                        <select id="installation-method" class="fancy-select">
+                            <option value="conduit">In Conduit</option>
+                            <option value="trunking">In Trunking</option>
+                            <option value="direct-burial">Direct Burial</option>
+                            <option value="free-air">Free Air</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ambient-temp">Ambient Temperature (°C)</label>
+                        <input type="number" id="ambient-temp" value="30" min="0" max="60">
+                    </div>
+                    
+                    <button id="calculate-wire" class="calculate-btn">
+                        <span>Calculate</span>
+                        <i class="fas fa-calculator"></i>
+                    </button>
+                </div>
+                
+                <div class="result-column">
+                    <div class="results-container">
+                        <h3>Results</h3>
+                        <div id="wire-results" class="results">
+                            <p>Complete the form and click Calculate to see results.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="code-reference">
+                        <h4>Singapore Code Reference</h4>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <div class="accordion-header">CP5:2018 Table 52A</div>
+                                <div class="accordion-content">
+                                    <p>This table provides current-carrying capacities for cables with copper conductors insulated with PVC.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">CP5:2018 Section 523</div>
+                                <div class="accordion-content">
+                                    <p>This section covers current-carrying capacity and voltage drop calculations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="breaker-calculator" class="calculator-section">
+            <h2>Circuit Breaker Size Calculator</h2>
+            <p class="section-desc">Determine appropriate circuit breaker ratings based on Singapore's CP5 Code of Practice.</p>
+            
+            <div class="calculator-container">
+                <div class="input-column">
+                    <div class="form-group">
+                        <label for="breaker-application">Application Type</label>
+                        <select id="breaker-application" class="fancy-select">
+                            <option value="residential">Residential</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="office">Office</option>
+                            <option value="school">School</option>
+                            <option value="industrial">Industrial</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="load-type">Load Type</label>
+                        <select id="load-type" class="fancy-select">
+                            <option value="lighting">Lighting</option>
+                            <option value="power">Power Socket</option>
+                            <option value="motor">Motor</option>
+                            <option value="heating">Heating</option>
+                            <option value="aircon">Air Conditioning</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="continuous-load">Continuous Load?</label>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="continuous-load">
+                            <label for="continuous-load"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="load-power">Load Power (W/kW)</label>
+                        <input type="number" id="load-power" min="0" step="0.1">
+                        <select id="power-unit" class="unit-select">
+                            <option value="W">W</option>
+                            <option value="kW">kW</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="breaker-voltage">Voltage (V)</label>
+                        <input type="number" id="breaker-voltage" value="230" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="power-factor">Power Factor</label>
+                        <input type="number" id="power-factor" value="0.85" min="0" max="1" step="0.01">
+                    </div>
+                    
+                    <button id="calculate-breaker" class="calculate-btn">
+                        <span>Calculate</span>
+                        <i class="fas fa-calculator"></i>
+                    </button>
+                </div>
+                
+                <div class="result-column">
+                    <div class="results-container">
+                        <h3>Results</h3>
+                        <div id="breaker-results" class="results">
+                            <p>Complete the form and click Calculate to see results.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="code-reference">
+                        <h4>Singapore Code Reference</h4>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <div class="accordion-header">CP5:2018 Section 433</div>
+                                <div class="accordion-content">
+                                    <p>This section covers protection against overcurrent and selection of protective devices.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">CP5:2018 Section 434</div>
+                                <div class="accordion-content">
+                                    <p>This section covers protection against overcurrent and selection of devices for protection against overload.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lighting-calculator" class="calculator-section">
+            <h2>Lighting Design Calculator</h2>
+            <p class="section-desc">Calculate illumination requirements and design lighting layouts based on Singapore standards.</p>
+            
+            <div class="calculator-container">
+                <div class="input-column">
+                    <div class="form-group">
+                        <label for="room-type">Room Type</label>
+                        <select id="room-type" class="fancy-select">
+                            <option value="office">Office Space</option>
+                            <option value="classroom">Classroom</option>
+                            <option value="living">Living Room</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="bathroom">Bathroom</option>
+                            <option value="corridor">Corridor</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="room-length">Room Length (m)</label>
+                        <input type="number" id="room-length" min="0" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="room-width">Room Width (m)</label>
+                        <input type="number" id="room-width" min="0" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ceiling-height">Ceiling Height (m)</label>
+                        <input type="number" id="ceiling-height" min="0" step="0.1" value="2.7">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="light-type">Light Fixture Type</label>
+                        <select id="light-type" class="fancy-select">
+                            <option value="led-panel">LED Panel</option>
+                            <option value="downlight">Downlight</option>
+                            <option value="tube">Fluorescent Tube</option>
+                            <option value="pendant">Pendant Light</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fixture-lumens">Lumens per Fixture</label>
+                        <input type="number" id="fixture-lumens" min="0" step="10">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fixture-watts">Watts per Fixture</label>
+                        <input type="number" id="fixture-watts" min="0" step="0.1">
+                    </div>
+                    
+                    <button id="calculate-lighting" class="calculate-btn">
+                        <span>Calculate</span>
+                        <i class="fas fa-calculator"></i>
+                    </button>
+                </div>
+                
+                <div class="result-column">
+                    <div class="results-container">
+                        <h3>Results</h3>
+                        <div id="lighting-results" class="results">
+                            <p>Complete the form and click Calculate to see results.</p>
+                        </div>
+                        
+                        <div id="lighting-visualization" class="visualization-container">
+                            <!-- Lighting layout will be rendered here -->
+                        </div>
+                    </div>
+                    
+                    <div class="code-reference">
+                        <h4>Singapore Code Reference</h4>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <div class="accordion-header">SS531:2006</div>
+                                <div class="accordion-content">
+                                    <p>Singapore Standard for lighting of work places - Indoor.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">SS530:2014</div>
+                                <div class="accordion-content">
+                                    <p>Singapore Standard for energy efficiency for building services and equipment.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="fault-calculator" class="calculator-section">
+            <h2>Electrical Fault Calculator</h2>
+            <p class="section-desc">Calculate fault currents and analyze electrical faults based on Singapore's electrical regulations.</p>
+            
+            <div class="calculator-container">
+                <div class="input-column">
+                    <div class="form-group">
+                        <label for="fault-type">Fault Type</label>
+                        <select id="fault-type" class="fancy-select">
+                            <option value="three-phase">Three-Phase Short Circuit</option>
+                            <option value="line-line">Line-to-Line Fault</option>
+                            <option value="line-ground">Line-to-Ground Fault</option>
+                            <option value="double-ground">Double Line-to-Ground Fault</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="system-voltage">System Voltage (V)</label>
+                        <input type="number" id="system-voltage" min="0" value="400">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="transformer-rating">Transformer Rating (kVA)</label>
+                        <input type="number" id="transformer-rating" min="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="transformer-impedance">Transformer Impedance (%)</label>
+                        <input type="number" id="transformer-impedance" min="0" step="0.1" value="4">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cable-length-fault">Cable Length (m)</label>
+                        <input type="number" id="cable-length-fault" min="0" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cable-size">Cable Size (mm²)</label>
+                        <input type="number" id="cable-size" min="0" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fault-location">Fault Location</label>
+                        <select id="fault-location" class="fancy-select">
+                            <option value="main-db">Main Distribution Board</option>
+                            <option value="sub-db">Sub Distribution Board</option>
+                            <option value="final-circuit">Final Circuit</option>
+                        </select>
+                    </div>
+                    
+                    <button id="calculate-fault" class="calculate-btn">
+                        <span>Calculate</span>
+                        <i class="fas fa-calculator"></i>
+                    </button>
+                </div>
+                
+                <div class="result-column">
+                    <div class="results-container">
+                        <h3>Results</h3>
+                        <div id="fault-results" class="results">
+                            <p>Complete the form and click Calculate to see results.</p>
+                        </div>
+                        
+                        <div id="fault-visualization" class="visualization-container">
+                            <!-- Fault diagram will be rendered here -->
+                        </div>
+                    </div>
+                    
+                    <div class="code-reference">
+                        <h4>Singapore Code Reference</h4>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <div class="accordion-header">CP5:2018 Section 434</div>
+                                <div class="accordion-content">
+                                    <p>This section covers protection against short-circuit current.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">CP5:2018 Appendix D</div>
+                                <div class="accordion-content">
+                                    <p>This appendix provides guidance on calculation of short-circuit currents.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2023 Singapore Electrical Calculator</p>
+            <p>Based on Singapore's Code of Practice CP5:2018</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/wire-calculator.js"></script>
+    <script src="js/breaker-calculator.js"></script>
+    <script src="js/lighting-calculator.js"></script>
+    <script src="js/fault-calculator.js"></script>
+    <script src="js/theme-switcher.js"></script>
+</body>
+</html>
